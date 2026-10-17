@@ -1,0 +1,311 @@
+/* SF Pro is supplied by the Apple system font, without a font download.
+   Liquid Glass is adapted for the web; game pieces retain opaque surfaces. */
+:root {
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  --paper: #f5f5f7;
+  --ink: #1d1d1f;
+  --muted: #61616a;
+  --line: #dedee5;
+  --blue: #075bc7;
+  --glass: rgba(255, 255, 255, .64);
+  --glass-line: rgba(255, 255, 255, .95);
+  --glass-shadow: 0 8px 28px #202f4912, inset 0 1px 0 #ffffffed, inset 0 -1px 0 #d7dfeb70;
+}
+html { scroll-padding-top: 110px; accent-color: var(--blue); }
+body { font-family: var(--font-body); background: var(--paper); }
+.waiting-at-lurie { background: radial-gradient(ellipse 65% 420px at 75% 0, #e4edf780, transparent), var(--paper); min-height: 100dvh; padding-top: 12px; }
+button, input, summary { font-family: var(--font-body); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -.025em; text-wrap: balance; }
+::selection { color: #093465; background: #cde2fc; }
+button { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+button:active:not(:disabled):not([aria-disabled="true"]) { transform: scale(.98); }
+/* Persistent, translucent navigation is the glass layer above the content. */
+.app-header, .comfort-sheet, .session-heading {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(22px) saturate(1.65);
+  backdrop-filter: blur(22px) saturate(1.65);
+  border: 1px solid var(--glass-line);
+  box-shadow: var(--glass-shadow);
+}
+/* A clear lens: let the actual page supply the color, with light concentrated
+   at the curved edges instead of an opaque white wash across the surface. */
+.app-header {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  max-width: 1200px;
+  min-height: 72px;
+  margin: 0 auto;
+  padding: .65rem 1.15rem;
+  border-radius: 25px;
+  gap: .75rem;
+  flex-wrap: wrap;
+  background: linear-gradient(115deg, #ffffff26, #ffffff04 42%, #dce5ef10 75%, #ffffff1c), rgba(255, 255, 255, .14);
+  /* Compress backdrop luminance so dark artwork cannot swallow the labels. */
+  -webkit-backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  border: 1px solid #ffffff45;
+  box-shadow: 0 8px 28px #20334c12, 0 2px 6px #20334c08,
+    inset 0 1px 1px #ffffffb3, inset 0 -1px 1px #52647a24;
+}
+/* The masked rim follows the full rounded silhouette. It never covers the
+   controls or clips their keyboard focus outlines. */
+.app-header::before, .app-header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.app-header::before {
+  padding: 1px;
+  background: linear-gradient(135deg, #ffffffed 0%, #ffffff66 22%, #ffffff08 45%, #52647a38 65%, #ffffffb3 88%, #ffffff66);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.app-header::after {
+  box-shadow: inset 3px 3px 6px #ffffff38, inset -2px -3px 6px #65778e12;
+}
+.brand { min-width: 0; max-width: 100%; white-space: normal; text-align: left; font-family: var(--font-body); font-size: 1.2rem; font-weight: 700; font-style: normal; letter-spacing: normal; gap: .65rem; }
+.brand>span:last-child { min-width: 0; overflow-wrap: anywhere; }
+.brand-symbol { flex-shrink: 0; width: 40px; height: 40px; border-radius: 13px; background: transparent; transform: none; box-shadow: none; }
+.brand-symbol img { display: block; width: 100%; height: 100%; }
+.header-actions, .has-active-game .header-actions { margin-left: auto; gap: .35rem; }
+.header-actions .icon-button { min-height: 44px; font-size: .8rem; font-weight: 550; border-radius: 16px; color: #1d1d1f; }
+.header-actions .icon-button span, .header-actions .icon-button:nth-child(2) span { display: inline; }
+@media (hover: hover) { .header-actions .icon-button:hover { background: #ffffff66; color: #074d9f; box-shadow: inset 0 1px 0 #ffffff80, 0 1px 4px #20334c0a; } }
+.header-actions .appointment-button { background: linear-gradient(135deg, #ffffff52, #ffffff0d), #dbe3ed26; border: 1px solid #ffffff73; box-shadow: inset 0 1px 1px #ffffffa6, inset 0 -1px 1px #52647a24, 0 2px 5px #20334c0a; color: #263f60; font-weight: 600; font-size: .82rem; margin-left: .4rem; padding: .65rem 1rem; min-height: 44px; border-radius: 50px; }
+.header-actions .appointment-button span { display: inline; }
+@media (hover: hover) { .header-actions .appointment-button:hover { background: #ffffff80; border-color: #ffffffb3; } }
+.header-actions button { transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .header-actions button { transition: none; }
+}
+.library-main { max-width: 1264px; padding: 2.25rem 2rem 3rem; margin: auto; }
+.continue-strip { display: flex; align-items: center; gap: 1rem; padding: 1rem; margin-bottom: 1.2rem; background: #fff; border-radius: 22px; box-shadow: 0 3px 16px #17335408; }
+.continue-strip>div { min-width: 0; flex: 1; }
+.continue-strip h2 { font-size: 1rem; font-weight: 650; line-height: 1.25; text-wrap: pretty; }
+.continue-art { position: relative; display: grid; place-items: center; overflow: hidden; width: 56px; height: 56px; border-radius: 15px; flex-shrink: 0; background: var(--cover); }
+.continue-art>img, .continue-art>svg { width: 100%; height: 100%; object-fit: cover; }
+.continue-art .bubble-art { transform: scale(.17); transform-origin: top left; top: 1px; left: 1px; }
+.continue-art .cover-cards { transform: scale(.23); position: absolute; }
+.continue-strip .primary-button { flex-shrink: 0; font-size: .85rem; }
+/* Picture-led cards keep the artwork large and the whole tile tappable. */
+.game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.game-card { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr; column-gap: .75rem; row-gap: 0; align-items: center; padding: 0; border: 0; border-radius: 22px; background: #fff; box-shadow: 0 2px 10px #27375505; text-align: left; min-height: 132px; }
+@media (hover: hover) { .game-card:hover { transform: translateY(-2px); box-shadow: 0 7px 22px #27375513; } }
+.game-card .game-cover { position: relative; grid-row: 1; grid-column: 1 / -1; width: 100%; height: auto; aspect-ratio: 1.6; min-height: 190px; border-radius: 0; border: 0; overflow: hidden; }
+.game-cover>img { object-fit: cover; width: 100%; height: 100%; }
+/* Fill the preview independently of the SVG's natural ratio; scene covers crop at the card edge. */
+.game-cover > svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.game-card .game-cover .cover-cards { transform: scale(1.5); position: absolute; padding-right: 0; }
+.intro-matching { background: var(--cover); }
+.intro-matching .cover-cards { transform: scale(1.7); padding-right: 0; }
+.game-card .game-cover .bubble-art { width: 240px; height: 240px; left: 50%; top: 50%; right: auto; transform: translate(-50%, -50%) scale(.86); transform-origin: center; }
+.game-card .game-card-copy { grid-row: 2; grid-column: 1; width: auto; padding: 1rem 0 1rem 1.1rem; min-width: 0; }
+.game-card h2 { font-size: 1.15rem; font-weight: 650; letter-spacing: -.02em; margin: 0; }
+.game-card-copy>p { color: #61616a; font-size: .85rem; line-height: 1.4; min-height: 0; margin: .25rem 0; flex: none; }
+.card-meta { margin-top: .25rem; font-size: .7rem; color: #606674; }
+.game-card .card-meta>span:first-child, .game-card .card-meta>span:last-child { display: flex; gap: .25rem; background: none; padding: 0; font-size: .7rem; white-space: normal; }
+.game-card .card-open { position: static; grid-row: 2; grid-column: 2; margin: .8rem 1rem .8rem 0; align-self: center; justify-self: end; display: flex; align-items: center; justify-content: center; gap: .3rem; border-radius: 50px; background: #edf3fc; color: #075bc7; font-size: .78rem; font-weight: 650; min-height: 40px; padding: .45rem .7rem; }
+.card-open svg { display: none; }
+/* Short directions stay open beside every active or paused game. */
+.game-guide { max-width: 1000px; margin: 0 auto 1rem; padding: 1rem 1.25rem; border: 1px solid #e0e5ed; border-radius: 22px; background: #fff; }
+.game-guide h2 { font-size: 1rem; margin-bottom: .7rem; }
+.game-guide .play-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; font-size: .9rem; }
+/* The glass bar scrolls with the game so it cannot cover controls or directions. */
+.has-active-game .app-header { position: relative; top: auto; }
+.continue-strip p { margin-top: .15rem; color: var(--muted); font-size: .9rem; line-height: 1.45; }
+.matching-instruction { color: #33465b; font-size: 1rem; line-height: 1.5; margin-bottom: 1rem; text-align: center; }
+.memory-board:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.play-steps { display: grid; gap: .6rem; margin: 0; padding-left: 1.4rem; color: #33465b; font-size: 1rem; line-height: 1.5; }
+.play-steps li { padding-left: .25rem; }
+.play-steps li::marker { color: #075bc7; font-weight: 650; }
+.intro-copy .intro-goal { color: var(--ink); font-weight: 600; }
+.session-heading .pause-button>span { display: grid; gap: .15rem; min-width: 0; }
+
+/* One system button language for setup, gameplay controls, and results. */
+.primary-button { min-height: 50px; padding: .75rem 1.25rem; border: 1px solid #075bc7; border-radius: 50px; background: #075bc7; color: #fff; font-weight: 650; font-size: .95rem; box-shadow: 0 4px 10px #075bc718, inset 0 1px 0 #ffffff35; }
+@media (hover: hover) { .primary-button:hover:not(:disabled) { background: #054da9; } }
+.secondary-button { min-height: 46px; border-radius: 50px; border-color: #ced7e4; background: #f8faff; color: #264c7e; font-weight: 600; font-size: .9rem; box-shadow: none; }
+@media (hover: hover) { .secondary-button:hover:not(:disabled) { background: #e9f1fc; } }
+.text-button { color: #075bc7; font-weight: 600; min-height: 44px; }
+button:disabled { opacity: 1; }
+.session-main { max-width: 1264px; padding: 1.5rem 2rem 2rem; }
+.goodbye { width: 100%; max-width: 900px; min-height: calc(100dvh - 228px); margin: 0 auto; justify-content: center; gap: clamp(1.5rem, 4vh, 2.5rem); }
+.goodbye-icon { width: clamp(250px, 30vw, 350px); }
+.goodbye-icon .wave-paw { transform-box: view-box; transform-origin: 84px 92px; animation: bear-wave .42s ease-in-out infinite alternate; }
+.goodbye-icon .wave-sparkles { animation: bear-twinkle 1.6s ease-in-out infinite; }
+@keyframes bear-wave { from { transform: rotate(-18deg); } to { transform: rotate(14deg); } }
+@keyframes bear-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+.done-badge .done-seal { transform-box: view-box; transform-origin: 70px 70px; animation: done-pop .5s cubic-bezier(.34, 1.56, .64, 1) both; }
+.done-badge .done-seal-edge { fill: var(--cover-ink, #4fb878); stroke: var(--cover-ink, #4fb878); }
+.done-badge .done-seal-face { fill: color-mix(in srgb, var(--cover-ink, #4fb878) 85%, white); }
+.done-badge .done-check { stroke-dasharray: 1; animation: done-draw .35s ease-out .35s both; }
+.done-badge .done-confetti { transform-box: view-box; transform-origin: 70px 70px; animation: done-burst .6s ease-out .2s both; }
+@keyframes done-pop { from { transform: scale(.3) rotate(-25deg); } to { transform: none; } }
+@keyframes done-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes done-burst { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+.goodbye h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.08; text-wrap: balance; }
+.goodbye .primary-button { min-height: 64px; padding: .9rem 1.75rem; font-size: 1.1rem; }
+.session-heading { max-width: 1000px; margin: 0 auto 1rem; padding: .65rem 1rem; border-radius: 22px; gap: .75rem; }
+.session-heading>div { min-width: 0; overflow-wrap: anywhere; }
+.session-heading h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -.03em; }
+.session-heading .pause-button { background: #eef3fb; }
+.round-intro { margin: 1rem auto; border: 0; border-radius: 28px; box-shadow: 0 8px 28px #1e304108; }
+.intro-copy { padding: 1.75rem; gap: 1rem; }
+.intro-copy h2 { font-size: 2rem; font-weight: 700; letter-spacing: -.03em; }
+.intro-copy>p { font-size: 1rem; line-height: 1.55; }
+.start-block { display: grid; gap: .65rem; width: 100%; margin-block: .25rem; }
+.start-block>.primary-button { width: 100%; font-size: 1rem; }
+.start-block>span { display: flex; align-items: center; justify-content: center; gap: .4rem; color: #4f6272; font-size: .8rem; }
+.intro-help, .game-options { width: 100%; border: 0; border-radius: 16px; padding: 0; background: #f2f4f8; }
+.intro-help, .game-options { interpolate-size: allow-keywords; }
+.intro-help::details-content, .game-options::details-content { block-size: 0; overflow: clip; transition: block-size .5s ease, content-visibility .5s allow-discrete; }
+.intro-help[open]::details-content, .game-options[open]::details-content { block-size: auto; }
+.intro-help summary, .game-options>summary { display: flex; align-items: center; gap: .6rem; min-height: 50px; padding: .8rem 1rem; font-weight: 600; font-size: .9rem; color: #315278; cursor: pointer; list-style: none; }
+.intro-help summary::-webkit-details-marker, .game-options>summary::-webkit-details-marker { display: none; }
+.intro-help summary::after, .game-options>summary::after { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); margin-left: auto; flex-shrink: 0; }
+.intro-help[open] summary::after, .game-options[open]>summary::after { content: ''; transform: rotate(225deg); }
+.intro-help summary::after, .game-options>summary::after { transition: transform .5s ease; }
+.intro-help p { margin: 0; padding: 0 1rem 1rem; }
+.game-options-content { display: grid; gap: 1.2rem; padding: 0 1rem 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .intro-help::details-content, .game-options::details-content, .intro-help summary::after, .game-options>summary::after { transition: none; }
+}
+.matching-level button { border-radius: 15px; background: #fff; font-weight: 600; }
+.matching-level button[aria-pressed="true"], .postcard-scenes button[aria-pressed="true"] { background: #eaf2fc; border-color: #2368be; color: #214b80; }
+.play-shell { border-radius: 26px; border: 1px solid #e0e5ed; box-shadow: 0 8px 28px #20355206; }
+.round-bar[hidden] { display: none; }
+.round-bar { background: #f9fafc; color: #586274; font-weight: 550; font-size: .8rem; border-bottom: 1px solid #e8ebf1; }
+.round-progress>span { background: #075bc7; }
+.round-time { font-variant-numeric: tabular-nums; }
+.pause-overlay { background: #f3f6fb; padding: 2rem 1rem; }
+.pause-overlay h2, .round-result h2 { font-weight: 700; letter-spacing: -.03em; }
+.pause-icon { width: 150px; height: auto; background: none; border-radius: 0; overflow: visible; }
+.restart-confirm { background: #fff; border: 1px solid #cbd8eb; border-radius: 18px; padding: 1rem; max-width: 32rem; }
+.restart-confirm>p { margin: .5rem 0 .8rem; font-size: .9rem; }
+.restart-confirm>div { display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.pause-overlay .restart-confirm>div>button { flex: 1 1 9rem; max-width: 12rem; min-height: 50px; margin: 0; }
+.restart-confirm>.text-button { margin: .5rem auto 0; }
+/* Sheets share native modal focus, grouped rows, SF typography, and switches. */
+.comfort-sheet { border-radius: 30px; background: var(--glass); }
+.comfort-sheet h2 { font-weight: 700; letter-spacing: -.03em; }
+.comfort-sheet .comfort-heading { justify-content: space-between; margin-bottom: 1.25rem; }
+.comfort-options { background: #fff; border: 0; border-radius: 20px; margin-top: 0; }
+.comfort-option { min-height: 68px; }
+.comfort-option>svg { color: #075bc7; }
+.comfort-option strong { font-weight: 600; font-size: 1rem; }
+.comfort-option small { font-size: .8rem; line-height: 1.45; }
+.comfort-sheet>.primary-button { background: #075bc7; margin-top: 1.25rem; }
+.help-steps { display: grid; background: #fff; border-radius: 20px; padding-inline: 1rem; }
+.help-steps>div { display: flex; gap: 1rem; padding: 1rem 0; }
+.help-steps>div+div { border-top: 1px solid #e7eaf0; }
+.help-steps>div>svg { color: #075bc7; margin-top: .15rem; }
+.help-steps h3 { font-size: .95rem; font-weight: 650; text-wrap: pretty; }
+.help-steps p { color: #556174; font-size: .85rem; line-height: 1.5; margin-top: .3rem; }
+.mini-game-heading h2, .bubble-game-heading h2 { font-weight: 700; }
+@media (max-width: 1240px) {
+  .app-header { margin-inline: 1rem; }
+  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  html { scroll-padding-top: 95px; }
+  .waiting-at-lurie { padding-top: .5rem; }
+  .app-header { top: .5rem; margin-inline: .6rem; min-height: 64px; padding: .45rem .7rem; border-radius: 22px; gap: .35rem; }
+  .app-header .brand { font-size: 1.05rem; letter-spacing: normal; }
+  .app-header .brand-symbol { display: grid; }
+  .app-header .brand > span:last-child { display: none; }
+  .app-header .brand { gap: 0; }
+  .header-actions, .app-header .header-actions { gap: .1rem; }
+  .app-header .header-actions .icon-button { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 46px; padding: .25rem .35rem; border-radius: 13px; }
+  .app-header .header-actions .icon-button span { display: inline; font-size: .625rem; }
+  .app-header .header-actions .icon-button svg { width: 19px; height: 19px; }
+  .app-header .appointment-button { padding: .55rem .75rem; font-size: .75rem; margin-left: .3rem; }
+  .app-header .appointment-button>svg { display: block; width: 19px; height: 19px; }
+  .app-header .appointment-button>span { display: inline; }
+  .library-main { padding: 1.65rem 1rem 2rem; }
+  .continue-strip { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: .7rem; padding: 1rem; }
+  .continue-art { width: 42px; height: 46px; }
+  .continue-strip h2 { font-size: .95rem; }
+  .continue-strip .primary-button { grid-column: 1 / -1; width: 100%; }
+  .waiting-at-lurie .game-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .game-card { grid-template-columns: minmax(0, 1fr) auto; padding: 0; column-gap: .75rem; row-gap: 0; min-height: 0; border-radius: 22px; }
+  .game-card .game-cover { width: 100%; height: auto; min-height: 180px; border-radius: 0; }
+  .game-card h2 { font-size: 1.15rem; }
+  .game-guide { padding: 1rem 1.1rem; border-radius: 20px; }
+  .game-guide .play-steps { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
+  .game-card-copy>p { font-size: .85rem; }
+  .card-meta { margin-top: .2rem; }
+  .card-open { padding: .4rem .65rem; font-size: .75rem; }
+  .session-main { padding: 1rem .8rem 1.5rem; }
+  .goodbye { min-height: calc(100dvh - 164px); gap: 1.5rem; }
+  .goodbye-icon { width: clamp(210px, 58vw, 280px); }
+  .goodbye h1 { font-size: clamp(2.4rem, 9vw, 3.5rem); }
+  .goodbye .primary-button { min-height: 56px; max-width: 100%; font-size: 1rem; }
+  .session-heading { grid-template-columns: auto minmax(0, 1fr) auto; padding: .55rem .65rem; gap: .3rem; border-radius: 19px; }
+  .session-heading>div { grid-row: 1; grid-column: 2; text-align: center; padding: .3rem .2rem; }
+  .session-heading h1 { font-size: 1.1rem; }
+  .session-heading>.text-button { grid-row: 1; grid-column: 1; padding-inline: .15rem; gap: .2rem; font-size: .8rem; }
+  .session-heading>.pause-button { grid-row: 1; grid-column: 3; padding: .5rem .85rem; min-height: 44px; font-size: .85rem; }
+  .round-intro { margin-top: .8rem; border-radius: 23px; }
+  .round-intro .intro-art { height: 130px; min-height: 0; }
+  .round-intro .intro-picture, .round-intro .intro-bubbles, .round-intro .intro-icon { height: 125px; min-height: 0; max-height: 125px; }
+  .intro-matching .cover-cards { transform: scale(.75); }
+  .round-intro .intro-bubbles .bubble-art { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(.37); }
+  .round-intro .intro-picture>.garden-art, .round-intro .intro-picture>.discovery-art { width: 230px; max-height: 125px; }
+  .intro-copy { padding: 1.15rem; gap: .8rem; }
+  .intro-copy h2 { font-size: 1.5rem; }
+  .intro-copy>p { font-size: .92rem; }
+  .game-options-content { padding: 0 .75rem .85rem; }
+  .comfort-sheet { padding: 1.2rem; border-radius: 26px; }
+  .round-result h2 { font-size: 1.8rem; }
+  .round-bar { padding: .65rem .8rem; font-size: .75rem; gap: .4rem; flex-wrap: wrap; }
+}
+@media (max-width: 360px) {
+  .app-header { padding-inline: .5rem; margin-inline: .45rem; }
+  .app-header .brand { font-size: .98rem; }
+  .app-header .appointment-button { padding-inline: .55rem; margin-left: .1rem; }
+  .app-header .header-actions .icon-button { padding-inline: .25rem; min-width: 44px; }
+}
+/* Reflow with enlarged system text; no fixed-width columns can trap the copy. */
+html[data-large-text="true"] .app-header { position: relative; top: auto; }
+html[data-large-text="true"] .game-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+@media (max-width: 760px) {
+  html[data-large-text="true"] .game-grid { grid-template-columns: minmax(0, 1fr); }
+}
+/* Glass always has an opaque, high-contrast fallback. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .app-header, .session-heading, .comfort-sheet { background: #fafbfe; }
+  .app-header::before, .app-header::after { display: none; }
+}
+html[data-solid="true"] { --glass: #fafbfe; --glass-shadow: none; }
+html[data-solid="true"] .app-header { background: #fafbfe; border-color: #76849a; box-shadow: none; }
+html[data-solid="true"] .app-header::before, html[data-solid="true"] .app-header::after { display: none; }
+html[data-solid="true"] .app-header, html[data-solid="true"] .session-heading, html[data-solid="true"] .comfort-sheet, html[data-solid="true"] .comfort-sheet::backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
+html[data-solid="true"] .comfort-sheet::backdrop { background: #2a364bcc; }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root { --glass: #fafbfe; --glass-line: #76849a; --muted: #3c4656; }
+  .app-header { background: #fafbfe; border-color: #76849a; box-shadow: none; }
+  .app-header::before, .app-header::after { display: none; }
+  .app-header, .session-heading, .comfort-sheet, .comfort-sheet::backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+@media (prefers-contrast: more) {
+  .game-card { border: 1px solid #737e91; }
+  button { border-color: #667994; }
+}
+@media (forced-colors: active) {
+  .app-header::before, .app-header::after { display: none; }
+  html[data-solid="true"] .app-header { background: Canvas; border-color: CanvasText; }
+  .app-header, .session-heading, .comfort-sheet, .continue-strip { background: Canvas; color: CanvasText; border: 1px solid CanvasText; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
+  .primary-button, .secondary-button, .card-open { background: ButtonFace; color: ButtonText; border: 1px solid ButtonText; }
+  .game-card { border: 1px solid CanvasText; }
+  button[aria-pressed="true"], button[aria-checked="true"] { outline: 2px solid Highlight; }
+}
+
+/* Result actions sit side by side and share one height. */
+.result-actions>.secondary-button { min-height: 50px; padding: .75rem 1.25rem; display: inline-flex; align-items: center; gap: .5rem; }
