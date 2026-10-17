@@ -1,0 +1,296 @@
+/* Shared helpers and the newer games. Loaded after the core sheets. */
+
+/* The pointing hand: fingertip sits on the target's center. */
+.coach-hand { position: fixed; z-index: 60; pointer-events: none; color: #1d1d1f; translate: -38% -6%; filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 4px 6px #0003); animation: coach-tap 1.1s ease-in-out infinite; transition: opacity .2s; }
+.coach-hand svg { display: block; }
+.coach-swipe { animation: coach-swipe 1.6s ease-in-out infinite; }
+@keyframes coach-tap { 0%, 100% { transform: translateY(10px) scale(1); } 45% { transform: translateY(0) scale(.92); } }
+@keyframes coach-swipe { 0% { transform: translateX(-70px); opacity: 0; } 15% { opacity: 1; } 70% { transform: translateX(70px); opacity: 1; } 100% { transform: translateX(70px); opacity: 0; } }
+html[data-quiet="true"] .coach-hand { animation: none; }
+
+.read-aloud { display: inline-flex; align-items: center; gap: .45rem; justify-self: start; align-self: start; min-height: 44px; }
+.pause-overlay .read-aloud { margin-inline: auto; }
+
+/* Stickers */
+.sticker-badge { display: inline-grid; place-items: center; flex: none; width: 44px; height: 44px; color: var(--cover-ink, #4b3d7a); }
+/* Every game's sticker has its own color: --cover-ink for the icon (and the finish seal), --cover for its tint. */
+:is(.sticker-badge, .done-badge).sticker-bubbles { --cover-ink: #0f7f86; --cover: #d6f1f2; }
+:is(.sticker-badge, .done-badge).sticker-music { --cover-ink: #b0307a; --cover: #f8dcec; }
+:is(.sticker-badge, .done-badge).sticker-stickers { --cover-ink: #c25a12; --cover: #fbe3d0; }
+:is(.sticker-badge, .done-badge).sticker-matching { --cover-ink: #c2334a; --cover: #f9dadf; }
+:is(.sticker-badge, .done-badge).sticker-garden { --cover-ink: #2f8a3e; --cover: #dcf1dd; }
+:is(.sticker-badge, .done-badge).sticker-postcards { --cover-ink: #1f62c4; --cover: #dbe7fa; }
+:is(.sticker-badge, .done-badge).sticker-sky { --cover-ink: #9a6b00; --cover: #f7ecc9; }
+:is(.sticker-badge, .done-badge).sticker-robot { --cover-ink: #4b47b8; --cover: #e2e1f8; }
+:is(.sticker-badge, .done-badge).sticker-planetpost { --cover-ink: #8040b0; --cover: #ecdff7; }
+:is(.sticker-badge, .done-badge).sticker-colors { --cover-ink: #8a5a2b; --cover: #f1e4d6; }
+:is(.sticker-badge, .done-badge).sticker-pebbles { --cover-ink: #4c6278; --cover: #e1e7ee; }
+.sticker-earned { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: .2rem 0 .4rem; font-weight: 650; color: #33465b; }
+.sticker-earned .sticker-badge { border-radius: 50%; background: var(--cover, #e6dff7); border: 3px solid #fff; box-shadow: 0 3px 8px #2030501f; animation: sticker-in .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes sticker-in { from { transform: scale(.2) rotate(-30deg); } to { transform: scale(1) rotate(0); } }
+
+/* Shelves */
+.games-section + .games-section { margin-top: 2rem; }
+.shelf-heading { display: flex; align-items: baseline; gap: .6rem; max-width: 1200px; margin: 0 auto .8rem; }
+.shelf-heading h2 { font-size: 2.5rem; }
+
+/* Color Lab meter */
+.mix-meter { position: relative; height: 34px; max-width: 420px; margin: 0 auto 1rem; border-radius: 17px; background: #eef0f3; overflow: hidden; }
+.mix-meter>span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: linear-gradient(90deg, #f3c27a, #8cc79a); transition: width .35s ease; }
+.mix-meter>strong { position: relative; display: grid; place-items: center; height: 100%; font-size: .9rem; color: #1f3a2c; }
+.mix-meter.is-matched>span { background: #49a36b; }
+.mix-meter.is-matched>strong { color: #fff; }
+
+/* Pocket Garden: the pot and the sun are buttons too. */
+.garden-stage { position: relative; max-width: 600px; margin: auto; }
+.garden-spot { position: absolute; border: 0; padding: 0; border-radius: 22px; background: transparent; cursor: pointer; }
+.garden-spot:focus-visible { outline: 3px solid var(--blue); }
+.garden-spot:not(.garden-sun-spot) { display: grid; align-items: start; justify-items: center; }
+.garden-drops { display: flex; gap: 6px; padding-top: 2px; color: #4b8fd8; animation: drops-hover 1.4s ease-in-out infinite; }
+.garden-sun-spot { border-radius: 50%; box-shadow: 0 0 0 6px #f8d37366, 0 0 28px 10px #f8d37388; animation: sun-glow 1.6s ease-in-out infinite; }
+.garden-effect { position: absolute; top: 34%; translate: -50% 0; display: flex; gap: 6px; pointer-events: none; }
+.garden-effect-water { color: #4b8fd8; animation: drops-fall .85s ease-in forwards; }
+.garden-effect-sun { color: #f2b632; top: 8%; left: 83% !important; animation: sun-burst .85s ease-out forwards; }
+@keyframes drops-hover { 50% { transform: translateY(-5px); } }
+@keyframes sun-glow { 50% { box-shadow: 0 0 0 10px #f8d37355, 0 0 36px 16px #f8d37377; } }
+@keyframes drops-fall { from { transform: translateY(-30px); opacity: 1; } to { transform: translateY(40px); opacity: 0; } }
+@keyframes sun-burst { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+html[data-quiet="true"] :is(.garden-drops, .garden-sun-spot, .garden-effect) { animation: none; }
+
+/* Planet Post: the status line replaces Send mail. */
+.post-status { display: flex; align-items: center; justify-content: center; gap: .5rem; min-height: 48px; margin: 1rem auto 0; font-weight: 700; color: #163b69; }
+
+/* Pebble Sort: the grid matches the puzzle's jar count. */
+.pebble-jars { grid-template-columns: repeat(var(--jars, 4), minmax(0, 1fr)); max-width: calc(var(--jars, 4) * 145px); }
+
+/* Robot Route: a direction pad for one-tap moves. */
+.robot-pad { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: ". up ." "left . right" ". down ."; max-width: 300px; margin: 0 auto; gap: .45rem; }
+.robot-pad-up { grid-area: up; } .robot-pad-left { grid-area: left; } .robot-pad-right { grid-area: right; } .robot-pad-down { grid-area: down; }
+.robot-stepper .robot-notice { display: flex; align-items: center; gap: .4rem; }
+.robot-stepper .robot-edit-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: .7rem 0 0; }
+.robot-stepper .robot-edit-actions .text-button { justify-content: center; gap: .4rem; min-height: 48px; padding: .5rem 1rem; border: 1px solid #cdd4e6; border-radius: 999px; background: white; color: #344159; font-size: .9rem; }
+.robot-stepper .robot-edit-actions .text-button:disabled { border-color: transparent; background: #eef1f6; color: #6b7588; }
+.robot-bumped .robot-board-wrap { animation: robot-bump .3s ease-in-out; }
+@keyframes robot-bump { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+html[data-quiet="true"] .robot-bumped .robot-board-wrap { animation: none; }
+
+/* Music Pad */
+.music-game, .sticker-game { max-width: 760px; margin: auto; padding: 1.5rem 1.5rem 2rem; }
+.music-muted { display: flex; align-items: center; gap: .5rem; justify-content: center; padding: .6rem .8rem; margin-bottom: .6rem; border-radius: 12px; background: #fff4e0; color: #6b4a10; font-size: .9rem; }
+.music-modes { margin: .6rem auto 1rem; }
+.music-progress { height: 10px; max-width: 520px; margin: 0 auto 1rem; border-radius: 5px; background: #eceaf3; overflow: hidden; }
+.music-progress>span { display: block; height: 100%; background: #b85888; transition: width .2s; }
+.music-pads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; max-width: 560px; margin: auto; }
+.music-pad { position: relative; display: grid; place-items: center; aspect-ratio: 1; min-height: 64px; border: 0; border-radius: 24px; box-shadow: inset 0 -6px 0 #0000001a, 0 4px 10px #2030501a; touch-action: manipulation; }
+.music-pad:active { transform: scale(.94); box-shadow: inset 0 -2px 0 #0000001a; }
+.music-pad.is-next { outline: 4px solid #1d1d1f; outline-offset: 3px; animation: pad-glow 1s ease-in-out infinite; }
+.music-friend { display: grid; animation: friend-sing .35s ease-out; }
+.music-note-label { position: absolute; left: 10px; top: 6px; font-weight: 800; font-size: .85rem; color: #1d1d1fb0; }
+.music-actions { display: flex; gap: .6rem; justify-content: center; margin-top: 1.2rem; }
+@keyframes pad-glow { 50% { filter: brightness(1.12); box-shadow: 0 0 0 8px #ffffffaa, 0 6px 18px #2030502e; } }
+@keyframes friend-sing { 40% { transform: translateY(-10px) scale(1.12); } }
+html[data-quiet="true"] :is(.music-pad.is-next, .music-friend) { animation: none; }
+.music-cover { display: grid; grid-template-columns: repeat(4, 44px); gap: 6px; place-content: center; height: 100%; position: relative; }
+.music-cover>span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; }
+.music-cover>svg { position: absolute; right: 14px; top: 10px; color: #b85888; }
+
+/* Sticker Scene */
+.sticker-canvas, .sticker-picture { position: relative; aspect-ratio: 400 / 260; max-width: 620px; margin: 0 auto; border-radius: 22px; overflow: hidden; box-shadow: 0 4px 14px #2030501a; }
+.sticker-backdrop { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sticker-place { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: crosshair; touch-action: manipulation; }
+.sticker-place:focus-visible { outline: 4px solid var(--blue); outline-offset: -4px; }
+.placed-sticker { position: absolute; translate: -50% -50%; display: grid; place-items: center; border: 0; padding: 0; background: transparent; filter: drop-shadow(0 3px 2px #0003); animation: sticker-in .35s cubic-bezier(.3, 1.6, .5, 1); }
+.placed-sticker>svg, .placed-sticker>.sticker-badge { width: clamp(40px, 11vw, 56px) !important; height: clamp(40px, 11vw, 56px) !important; }
+.sticker-tray { display: flex; flex-wrap: wrap; justify-content: center; gap: .45rem; max-width: 620px; margin: .4rem auto 1rem; }
+.sticker-tray button { display: grid; place-items: center; width: 58px; height: 58px; border: 2px solid #dfe4ec; border-radius: 16px; background: #fff; padding: 0; }
+.sticker-tray button[aria-pressed="true"] { border: 3px solid #075bc7; background: #e7f0fd; box-shadow: 0 0 0 3px #cde2fc; }
+.sticker-game .discovery-actions .primary-button { margin-left: auto; }
+.sticker-cover { position: absolute; inset: 0; display: grid; }
+.sticker-cover .sticker-picture { width: 100%; height: 100%; max-width: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
+.sticker-cover .placed-sticker>svg { width: 46px !important; height: 46px !important; }
+.sticker-cover .placed-sticker { animation: none; }
+html[data-quiet="true"] :is(.placed-sticker, .sticker-earned .sticker-badge) { animation: none; }
+.result-art .sticker-picture { width: min(100%, 520px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .coach-hand, .garden-drops, .garden-sun-spot, .garden-effect, .music-pad.is-next, .music-friend, .placed-sticker { animation: none; }
+}
+@media (forced-colors: active) {
+  .music-pad.is-next, .sticker-tray button[aria-pressed="true"] { outline: 3px solid Highlight; }
+}
+
+/* Show me: the always-there way to ask "what do I do?" */
+.show-me-button { display: inline-flex; align-items: center; gap: .4rem; min-height: 40px; padding: .35rem .9rem .35rem .7rem; border: 1px solid #c9d6ea; border-radius: 999px; background: #fff; color: #0b4fa8; font-size: .9rem; font-weight: 700; }
+@media (hover: hover) { .show-me-button:hover { background: #eef4fd; } }
+.show-me-button:disabled { opacity: .5; }
+.round-clock { display: inline-flex; align-items: center; gap: .6rem; }
+.round-clock .round-time { display: inline-flex; align-items: center; gap: .3rem; }
+
+/* Pebble Sort: the picked-up pebble lifts out of its jar. */
+.pebble-jar .pebble { transition: transform .18s ease, box-shadow .18s ease; }
+.pebble-jar[aria-pressed="true"] .pebble:last-child { transform: translateY(-16px) scale(1.06); box-shadow: 0 10px 14px #1d25322e; position: relative; z-index: 1; }
+html[data-quiet="true"] .pebble-jar .pebble { transition: none; }
+
+/* Top bar as two floating bubbles: the name on the left, the actions on the
+   right. The bar itself is invisible, and its gap never blocks a tap. */
+.app-header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: .6rem; background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; min-height: 0; padding: 0; align-items: center; pointer-events: none; }
+.app-header::before, .app-header::after { display: none; }
+.app-header .lurie-home, .app-header .header-actions, .app-header .sticker-bubble {
+  pointer-events: auto;
+  display: flex; align-items: center; min-height: 60px; border-radius: 999px;
+  background: linear-gradient(115deg, #ffffff26, #ffffff04 42%, #dce5ef10 75%, #ffffff1c), rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  border: 1px solid #ffffff6b;
+  box-shadow: 0 8px 28px #20334c14, 0 2px 6px #20334c0a, inset 0 1px 1px #ffffffb3, inset 0 -1px 1px #52647a24;
+}
+/* The end-of-round tally ("2 notes played") is a smaller bubble of the same glass. */
+.result-summary {
+  display: inline-flex; align-items: center; min-height: 48px; padding: .55rem 1.3rem; border-radius: 999px;
+  background: linear-gradient(115deg, #ffffff26, #ffffff04 42%, #dce5ef10 75%, #ffffff1c), rgba(255, 255, 255, .14);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  backdrop-filter: blur(10px) saturate(1.6) contrast(.62) brightness(1.38);
+  border: 1px solid #ffffff6b;
+  box-shadow: 0 8px 28px #20334c14, 0 2px 6px #20334c0a, inset 0 1px 1px #ffffffb3, inset 0 -1px 1px #52647a24;
+}
+/* Stickers won in games fill the left bubble; Help, Settings and Bye the right. */
+/* The Lurie Children's logo, top left: also the way home. */
+/* Lockup after Lurie Children's own: the hand, then "Waiting at" in black and
+   "Lurie Children's" in Lurie blue (#007DC3, sampled from the logo) on one line. */
+.app-header .lurie-home { grid-column: 1; justify-self: start; gap: .6rem; padding: .05rem 1.35rem .05rem .55rem; font: inherit; cursor: pointer; text-align: left; }
+.lurie-home img { display: block; flex: none; width: 46px; height: 46px; }
+.lurie-name { font-size: 1.15rem; font-weight: 500; line-height: 1; white-space: nowrap; }
+.lurie-l1 { color: #231F20; }
+.lurie-l2 { color: #007DC3; }
+/* Desktop: bigger header labels, and a slightly bolder name. */
+@media (min-width: 1024px) {
+  .lurie-name { font-size: 1.25rem; font-weight: 600; }
+  .app-header .sticker-label, .app-header .header-actions :is(.icon-button, .appointment-button) span { font-size: .95rem; line-height: 1.2; }
+}
+/* Below wide desktops the sticker row shows six; the count keeps the total. */
+@media (max-width: 1279px) { .sticker-row > .sticker-badge:nth-child(n + 7) { display: none; } }
+@media (hover: hover) { .lurie-home:hover { background-color: rgba(255, 255, 255, .34); } }
+/* The name needs room beside the centered stickers; below that, the logo alone. */
+@media (max-width: 1023px) {
+  .app-header { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .lurie-name { display: none; }
+  .app-header .lurie-home { width: 60px; padding: 0; justify-content: center; }
+  .lurie-home img { width: 46px; height: 46px; }
+}
+.app-header .sticker-bubble { grid-column: 2; justify-self: center; min-width: 0; gap: .55rem; padding: .4rem 1rem .4rem .9rem; color: #33465b; }
+/* Named like Help and Settings on the right; phones show the icon alone. */
+.sticker-label { font-size: .8rem; font-weight: 550; color: #1d1d1f; margin-right: .35rem; }
+.sticker-bubble { font: inherit; cursor: pointer; }
+@media (hover: hover) { .sticker-bubble:hover { background-color: rgba(255, 255, 255, .34); color: #074d9f; } }
+.sticker-row { display: flex; }
+.sticker-row > .sticker-badge + .sticker-badge { margin-left: -9px; }
+.sticker-bubble .sticker-badge { width: 32px; height: 32px; border-radius: 50%; background: var(--cover, #e6dff7); border: 2px solid #fff; box-shadow: 0 2px 4px #2030501a; }
+.sticker-bubble strong { font-size: 1rem; font-variant-numeric: tabular-nums; }
+.app-header .header-actions { grid-column: 3; justify-self: end; margin-left: 0; padding: .4rem; }
+@media (max-width: 760px) {
+  /* Logo and buttons keep their width; the stickers center between them. */
+  .app-header { padding: 0; min-height: 0; gap: .35rem; grid-template-columns: auto minmax(0, 1fr) auto; }
+  .app-header .lurie-home { width: 56px; padding: 0; }
+  .lurie-home img { width: 42px; height: 42px; }
+  .app-header .sticker-bubble { min-width: 0; }
+  .app-header .header-actions { flex-wrap: nowrap; padding: .3rem; }
+  .app-header .lurie-home, .app-header .header-actions, .app-header .sticker-bubble { min-height: 56px; }
+  .app-header .sticker-bubble { padding: .3rem .8rem .3rem .55rem; gap: .4rem; }
+  .sticker-label { display: none; }
+  /* Little room beside the buttons: stickers overlap and lean like a row of
+     dominoes; the first six show, with the full count after them. */
+  .sticker-bubble.has-stickers > svg { display: none; }
+  .sticker-bubble .sticker-badge { width: 30px; height: 30px; transform: rotate(-10deg); }
+  .sticker-row > .sticker-badge + .sticker-badge { margin-left: -22px; }
+  .sticker-row > .sticker-badge:nth-child(n + 4) { display: none; }
+}
+/* Small phones: two stickers, so a two-digit count still fits beside the logo. */
+@media (max-width: 400px) {
+  .app-header .sticker-bubble { padding: .3rem .6rem .3rem .45rem; }
+  .sticker-row > .sticker-badge:nth-child(n + 3) { display: none; }
+}
+/* The narrowest phones: the sticker icon and the count. */
+@media (max-width: 350px) {
+  .app-header { gap: .25rem; }
+  .app-header .lurie-home { width: 50px; }
+  .lurie-home img { width: 38px; height: 38px; }
+  .sticker-row { display: none; }
+  .sticker-bubble.has-stickers > svg { display: block; }
+  .app-header .sticker-bubble { padding: .3rem .4rem; gap: .3rem; }
+}
+/* Solid backgrounds, high contrast, and browsers without glass: solid bubbles.
+   The bar between them stays see-through. */
+html[data-solid="true"] .app-header { background: none; border: 0; }
+html[data-solid="true"] :is(.app-header :is(.lurie-home, .header-actions, .sticker-bubble), .result-summary) { background: #fafbfe; border-color: #76849a; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :is(.app-header :is(.lurie-home, .header-actions, .sticker-bubble), .result-summary) { background: #fafbfe; }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :is(.app-header :is(.lurie-home, .header-actions, .sticker-bubble), .result-summary) { background: #fafbfe; border-color: #76849a; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+@media (forced-colors: active) {
+  .app-header, html[data-solid="true"] .app-header { border: 0; background: none; }
+  :is(.app-header :is(.lurie-home, .header-actions, .sticker-bubble), .result-summary) { background: Canvas; color: CanvasText; border: 1px solid CanvasText; }
+}
+
+/* Game cards grow a little under the pointer instead of lifting. Hover only
+   where a real pointer can hover, so a tapped card on a phone never sticks
+   large. Keyboard focus gets the same, without the hover guard. */
+.game-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.game-card:hover { transform: none; }
+@media (hover: hover) {
+  .game-card:hover { transform: scale(1.03); }
+}
+.game-card:focus-visible { transform: scale(1.03); }
+html[data-quiet="true"] .game-card:is(:hover, :focus-visible) { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .game-card, .game-card:is(:hover, :focus-visible) { transform: none; transition: none; }
+}
+
+/* No focus ring after a tap or click, anywhere. main.tsx sets data-keys on
+   the first key press, so keyboard and switch users still see where they are. */
+html:not([data-keys="true"]) :focus { outline: none !important; }
+html:not([data-keys="true"]) .game-card:focus-visible { border-color: #e1e6e1; }
+html:not([data-keys="true"]) .game-card:focus-visible:not(:hover) { transform: none; }
+
+/* The sticker book: every game's sticker, won ones in color. */
+.sticker-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; list-style: none; margin: 0 0 1.1rem; padding: .9rem; background: #fff; border-radius: 20px; }
+.sticker-grid li { display: flex; flex-direction: column; align-items: center; gap: .3rem; min-width: 0; padding: .5rem .2rem; text-align: center; }
+.sticker-grid .sticker-badge { position: relative; width: 60px; height: 60px; border-radius: 50%; background: var(--cover, #e6dff7); border: 2px solid var(--cover-ink, #4b3d7a); }
+.sticker-grid .is-waiting .sticker-badge { background: transparent; border: 2px dashed #c7cdd8; }
+.sticker-grid strong { font-size: .8rem; font-weight: 650; line-height: 1.25; overflow-wrap: anywhere; }
+.sticker-grid .is-waiting .sticker-badge { color: #9aa3b2; }
+.sticker-grid .is-waiting strong { color: #5b6778; }
+.sticker-grid .is-waiting .sticker-times { background: #9aa3b2; }
+.sticker-times { position: absolute; right: -8px; bottom: -6px; padding: 0 .35rem; border-radius: 9px; background: #1d1d1f; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.5; }
+.sticker-sheet { max-height: min(92dvh, 760px); overflow-y: auto; }
+@media (max-width: 360px) { .sticker-grid { gap: .3rem; padding: .6rem; } .sticker-grid .sticker-badge { width: 52px; height: 52px; } }
+/* Sheets (Help, Settings, Stickers) stay readable over busy game art. */
+.comfort-sheet { background: rgba(248, 249, 252, .97); }
+@media (max-width: 760px) {
+  .sticker-grid { gap: .15rem .35rem; padding: .6rem; margin-bottom: .8rem; }
+  .sticker-grid li { padding: .3rem .1rem; gap: .2rem; }
+  .sticker-grid .sticker-badge { width: 50px; height: 50px; }
+  .sticker-grid .sticker-badge svg { width: 24px; height: 24px; }
+}
+
+/* Every title uses kevin-mei.tech's heading spacing: the usual tight headline
+   tracking plus a full pixel. Important, because older per-title rules
+   (game headings, sheets, results) each set their own tighter spacing. */
+.waiting-at-lurie :is(h1, h2, h3, h4) { letter-spacing: calc(-0.035em + 1px) !important; }
+/* Help rows are an icon and a name: center them on one line. */
+.help-steps>div { align-items: center; padding: .85rem 0; }
+.help-steps>div>svg { margin-top: 0; flex: none; }
+/* Without descriptions every setting fits beside its icon, phones included. */
+.comfort-option>svg { display: block; flex: none; }
+/* Settings rows: a name and a switch, so a little shorter. */
+.comfort-option { min-height: 54px; padding-block: .55rem; }
+/* Help: two columns of three, read across in pairs. */
+.help-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.2rem; }
+.help-steps>div+div { border-top: 0; }
+.help-steps>div:nth-child(n + 3) { border-top: 1px solid #e7eaf0; }
+.help-steps>div { gap: .7rem; min-width: 0; }
+.help-steps h3 { overflow-wrap: anywhere; }
+@media (max-width: 420px) { .help-steps { column-gap: .6rem; padding-inline: .55rem; } .help-steps>div { gap: .4rem; } }
+/* A bigger Play pill on each game card (phones tap the whole card instead). */
+.game-card .card-open { min-height: 48px; padding: .6rem 1.225rem; font-size: 1.125rem; font-weight: 600; }

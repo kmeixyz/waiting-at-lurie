@@ -1,0 +1,60 @@
+.post-game { max-width:820px; }
+.post-game .discovery-instruction { text-align:center; }
+.post-game .puzzle-picker { margin-bottom:1rem; flex-wrap:wrap; }
+.post-game .puzzle-picker button { font-size:.875rem; display:flex; align-items:center; justify-content:center; gap:.25rem; min-width:100px; }
+.post-map { max-width:456px; margin:auto; padding:1rem; border-radius:22px; background:#e8ddf0; color:#604a70; }
+.post-map-key { display:flex; justify-content:space-between; gap:1rem; font-size:.875rem; margin:0 0 .8rem; }
+.post-map-key span { display:flex; align-items:center; gap:.35rem; }
+.post-board { --post-gap:5px; position:relative; display:grid; grid-template-columns:repeat(var(--post-size),minmax(0,1fr)); grid-template-rows:repeat(var(--post-size),minmax(0,1fr)); aspect-ratio:1; gap:var(--post-gap); }
+.post-board:focus-visible { outline:3px solid #ffc966; outline-offset:4px; border-radius:8px; }
+.post-tile { position:relative; display:block; min-width:0; aspect-ratio:1; padding:0; border:2px solid #b7a3c8; border-radius:12px; background:#fff9ef; color:#604a70; touch-action:manipulation; }
+button.post-tile { user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; cursor:pointer; }
+button.post-tile:active:not(:disabled) { transform:none; }
+.post-space { display:grid; place-items:center; min-height:0; overflow:hidden; color:#ab91bf; font-size:1.4rem; }
+.post-pipe-glyph { display:block; width:100%; height:100%; overflow:hidden; border-radius:inherit; }
+.post-pipe-glyph path { fill:none; }
+.post-pipe-edge { stroke:#9b83b1; stroke-width:30; }
+.post-pipe-core { stroke:#d4c1e5; stroke-width:22; }
+.post-pipe-shine { stroke:#fff8ff; stroke-width:4; stroke-dasharray:4 5; }
+.post-connected { background:#e3f8f2; border-color:#45987f; }
+.post-connected .post-pipe-edge { stroke:#166b56; }
+.post-connected .post-pipe-core { stroke:#74dbb8; }
+.post-connected .post-pipe-shine { stroke:#f5fffc; stroke-dasharray:none; }
+.post-tile:focus-visible { outline:3px solid #ffc966; outline-offset:2px; z-index:2; }
+@media (hover: hover) { .post-tile:hover:not(:disabled) { border-color:#075bc7; } }
+.post-tile:disabled { opacity:1; }
+.post-hinted { outline:3px dashed #ffc966; outline-offset:0; z-index:1; }
+.post-hint-dot { position:absolute; top:0; right:0; background:#ffc966; color:#172b47; font-weight:800; font-size:.875rem; line-height:1.3; width:1.2em; border-radius:0 8px 0 5px; }
+.post-fixed { border-color:#b4a0c8; }
+.post-destination { background:#efe7ff; }
+.post-endpoint { position:absolute; inset:8%; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:8px; background:#fff8ee; color:#604a70; gap:2px; }
+.post-endpoint span { font-size:.875rem; line-height:1.15; }
+.post-endpoint svg { flex-shrink:0; }
+.post-mail { position:absolute; width:clamp(24px,calc(58% / var(--post-size)),44px); aspect-ratio:1; transform:translate(-50%,-50%); z-index:3; pointer-events:none; display:grid; place-items:center; color:#163b69; }
+.post-friend-art { display:block; width:100%; height:100%; }
+.post-map-key .post-friend-art { width:27px; height:27px; }
+.post-endpoint .post-friend-art { width:clamp(25px,80%,50px); height:auto; min-height:0; }
+.post-mail .post-friend-art { transform:scale(1.45); filter:drop-shadow(0 2px 2px #745a7933); }
+.post-cover { position:relative; width:100%; height:100%; min-height:140px; background:#eee4f4; overflow:hidden; }
+.post-cover > svg { position:absolute; inset:0; display:block; width:100%; height:100%; }
+.intro-post { padding:0; overflow:hidden; }
+.intro-post .post-cover { min-height:260px; }
+@media(max-width:600px) {
+ .post-map { padding:9px; border-radius:16px; }
+ .post-board { --post-gap:3px; }
+ .post-tile { border-width:1px; border-radius:7px; }
+ .post-endpoint { inset:3px; }
+ .post-endpoint span { display:none; }
+ .post-game .mini-game-heading { flex-wrap:wrap; }
+ .post-game .mini-game-count { white-space:normal; font-size:.875rem; }
+ .post-game .puzzle-picker button { min-width:90px; }
+ .post-game .discovery-actions button { font-size:.875rem; }
+ .post-cover { min-height:0; }
+}
+@media(forced-colors:active) {
+ .post-tile { border:2px solid ButtonText; }
+ .post-pipe-edge { stroke:CanvasText; }
+ .post-pipe-core { stroke:Canvas; }
+ .post-pipe-shine { stroke:CanvasText; }
+ .post-connected { outline:2px solid Highlight; }
+}

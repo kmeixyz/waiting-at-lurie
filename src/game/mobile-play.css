@@ -1,0 +1,199 @@
+/* Phone play layout: the board and its controls share one screen.
+   Loaded last so it settles the earlier stylesheets' mobile rules. */
+/* Covers use absolute children. Contain them so an intro cannot cover Start. */
+.intro-picture { position: relative; isolation: isolate; }
+.intro-picture > .sticker-cover { pointer-events: none; }
+.session-settings { display: inline-flex; align-items: center; gap: .4rem; }
+.show-me-button { min-height: 48px; }
+.memory-card.selected { outline: 3px solid #075bc7; outline-offset: 2px; }
+.memory-card .matching-picked { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); padding: 1px 6px; font-size: .7rem; background: #075bc7; color: white; border-radius: 6px; }
+.matching-instruction { font-size: 1.1rem; }
+/* Safari otherwise shrink-wraps this flex child around its labels. */
+.post-map { width: min(100%, 456px); }
+.sticker-canvas button.placed-sticker { min-width: 48px; min-height: 48px; }
+
+.pause-steps { max-width: 30rem; margin: .25rem auto .5rem; padding: .9rem 1rem .9rem 2.2rem; text-align: left; background: #fff; border: 1px solid #e0e5ed; border-radius: 16px; }
+
+@media (max-width: 760px) {
+  /* All games and Pause stay in the session bar; Help, Settings and Bye
+     return with the library, and a stray tap on Bye can't end a game. */
+  .has-active-game .app-header { display: none; }
+  /* The intro and the pause screen carry the steps; each game has its own prompt. */
+  .has-active-game .game-guide { display: none; }
+  .session-heading { margin-bottom: .6rem; }
+  .round-bar { min-height: 0; padding: .25rem .5rem; }
+  .show-me-button { min-height: 48px; }
+
+  /* Sky Dash: the track shrinks so Left, Jump and Right stay on screen. */
+  .three-stage, .sky-game .three-stage { height: clamp(200px, calc(100svh - 395px), 410px); }
+
+  /* Robot Route: coordinates are for screen readers; show one open slot, not twenty.
+     Arrows, the path they build and Run sit together under the map. */
+  .robot-board-wrap { max-width: clamp(240px, calc(100svh - 420px), 300px); }
+  .robot-board .robot-coordinate { display: none; }
+  .robot-legend { margin-top: .6rem; }
+  .robot-program-panel { display: flex; flex-direction: column; padding-top: 1rem; }
+  .robot-instruction { display: none; }
+  .robot-add { order: 1; margin-top: .6rem; }
+  .robot-queue { order: 2; margin-block: .6rem; }
+  .robot-queue li[aria-hidden="true"] ~ li[aria-hidden="true"] { display: none; }
+  .robot-run { order: 3; }
+  .robot-edit-actions { order: 4; margin: .6rem 0 0; }
+  .robot-notice { order: 5; }
+
+  /* Planet Post: board, then Send mail; route choice moves below the tools. */
+  .post-game { display: flex; flex-direction: column; }
+  .post-game>.discovery-instruction { display: none; }
+  .post-game>.discovery-complete { order: 1; margin-top: .9rem; }
+  .post-game>.discovery-feedback { order: 2; }
+  .post-game>.discovery-actions { order: 3; }
+  .post-game>.puzzle-picker { order: 4; margin: 1rem auto 0; width: 100%; }
+
+  /* Home: two compact tiles per row, so the whole shelf fits in a short scroll. */
+  .waiting-at-lurie .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+  .waiting-at-lurie .game-card { display: flex; flex-direction: column; align-items: stretch; padding: 0; gap: 0; border-radius: 18px; }
+  .waiting-at-lurie .game-card .game-cover { height: 104px; min-height: 0; aspect-ratio: auto; border-radius: 0; }
+  .waiting-at-lurie .game-card .game-card-copy { padding: .6rem .7rem .7rem; }
+  .waiting-at-lurie .game-card h2 { font-size: 1rem; }
+  .waiting-at-lurie .game-card .game-card-copy>p { font-size: .8rem; line-height: 1.35; margin: .15rem 0 0; }
+  .waiting-at-lurie .game-card .card-open, .waiting-at-lurie .game-card .card-meta { display: none; }
+  .game-card .game-cover .bubble-art { transform: translate(-50%, -50%) scale(.5); }
+  .game-card .game-cover .cover-cards { transform: scale(.75); }
+  .game-card .game-cover .post-cover { position: absolute; inset: 0; }
+  .game-card .music-cover { transform: scale(.7); }
+  .games-section + .games-section { margin-top: 1.4rem; }
+  .shelf-heading { margin-bottom: .55rem; }
+  .shelf-heading h2 { font-size: 2rem; }
+  .app-header .header-actions .icon-button span { font-size: .7rem; }
+
+  /* Three flowers always side by side, even with Bigger text. */
+  .picture-choices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .picture-choices button { min-height: 96px; padding: .4rem .2rem; overflow-wrap: anywhere; }
+  html[data-large-text="true"] .garden-steps { display: none; }
+  html[data-large-text="true"] .robot-legend { display: none; }
+  html[data-large-text="true"] .robot-board-wrap { max-width: 280px; }
+
+  /* New games on a phone. */
+  .music-game, .sticker-game { padding: 1rem .75rem 1.25rem; }
+  .music-pads { gap: .55rem; }
+  .music-pad { border-radius: 18px; }
+  .music-pad .music-friend svg { width: 46px; height: 46px; }
+  .sticker-tray button { width: 50px; height: 50px; }
+  .sticker-tray button svg { width: 34px; height: 34px; }
+  .sticker-game .puzzle-picker { margin: .4rem auto .6rem; }
+  .mix-meter { margin-bottom: .7rem; }
+
+  /* Puzzle Postcards: every piece in one row under the picture. */
+  .postcard-tray { max-width: min(100%, calc(var(--tray-columns, 4) * 90px)); grid-template-columns: repeat(var(--tray-columns, var(--piece-count)), minmax(0, 1fr)); gap: .45rem; margin-top: .8rem; }
+}
+
+/* Short phones (iPhone SE class): drop labels the board already shows. */
+@media (max-width: 760px) and (max-height: 740px) {
+  .robot-legend, .robot-program-heading { display: none; }
+  .robot-board-wrap { max-width: clamp(200px, calc(100svh - 470px), 300px); }
+  .garden-game .garden-art { max-height: 130px; }
+  /* Show me and the pause screen carry these; the board needs the room. */
+  .bubble-game-heading p, .color-game>.discovery-instruction, .garden-steps, .postcard-reference { display: none; }
+  .round-bar { padding-block: .15rem; }
+}
+
+/* Phones held sideways are wider than 760px but very short. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .has-active-game .app-header, .has-active-game .game-guide { display: none; }
+  .has-active-game.waiting-at-lurie { padding-top: 0; }
+  .has-active-game .session-main { padding: .35rem max(.8rem, env(safe-area-inset-right)) max(.8rem, env(safe-area-inset-bottom)) max(.8rem, env(safe-area-inset-left)); }
+  .session-heading { padding-block: .2rem; margin-bottom: .4rem; }
+  .round-bar { min-height: 0; padding-block: 2px; }
+  .show-me-button { min-height: 48px; padding-block: 0; }
+  /* Sky Dash: track on the left, score and controls under the right thumb. */
+  .sky-game { display: grid; grid-template-columns: minmax(0, 1fr) clamp(190px, 32vw, 260px); grid-template-rows: auto 1fr auto; }
+  .sky-game .three-hud { grid-column: 2; grid-row: 1; flex-wrap: wrap; justify-content: center; border-bottom: 0; }
+  .sky-game .three-stage { grid-column: 1; grid-row: 1 / 4; height: clamp(180px, calc(100svh - 140px), 320px); }
+  .sky-game .sky-controls { grid-column: 2; grid-row: 3; display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; padding: .5rem; }
+  .sky-game .jump-button { grid-column: 1 / -1; grid-row: 1; }
+  .sky-game :is(.jump-button, .steer-button) { min-height: 46px; }
+  .sky-game { gap: 0; }
+  .sky-game .three-hud { min-height: 0; padding-block: .35rem; gap: .6rem; flex-wrap: nowrap; }
+  .sky-game .hud-streak { display: none; }
+  /* Wide, short boards: one or two long rows instead of a tall stack. */
+  .bubble-board { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: 560px; gap: .6rem; }
+  .memory-board-small { grid-template-columns: repeat(6, minmax(0, 1fr)); max-width: 600px; }
+  .memory-board-small .memory-card { min-height: 0; }
+  /* Robot Route: map beside the arrows. */
+  .robot-workspace { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .robot-map-panel { padding: .6rem; border-bottom: 0; border-right: 1px solid #d8dced; }
+  .robot-map-heading, .robot-legend, .robot-board .robot-coordinate { display: none; }
+  .robot-board-wrap { max-width: min(300px, calc(100svh - 140px)); }
+  .robot-program-panel { padding: .6rem; justify-content: center; }
+  .music-pads { grid-template-columns: repeat(8, minmax(0, 1fr)); max-width: 780px; gap: .45rem; }
+  .music-game .mini-game-heading, .sticker-game .mini-game-heading { display: none; }
+  .sticker-canvas { max-width: clamp(240px, calc((100svh - 250px) * 400 / 260), 620px); }
+  .sky-game .journey-progress { display: none; }
+}
+
+/* Never trade readable boards for a no-scroll screenshot on a short phone. */
+@media (max-width: 760px) {
+  .session-main { padding-left: max(.8rem, env(safe-area-inset-left)); padding-right: max(.8rem, env(safe-area-inset-right)); }
+  .has-active-game { padding-top: max(12px, env(safe-area-inset-top)); }
+  .session :is(.text-button, .show-me-button, .secondary-button), .session summary { min-height: 48px; }
+  .session summary { display: flex; align-items: center; gap: .4rem; }
+  html[data-large-text="true"] .waiting-at-lurie .game-grid { grid-template-columns: minmax(0, 1fr); }
+  html[data-large-text="true"] .picture-choices { grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); }
+  /* A full title row prevents the navigation from squeezing words vertically. */
+  html[data-large-text="true"] .session-heading { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+  html[data-large-text="true"] .session-heading > div { grid-row: 1; grid-column: 1 / -1; text-align: left; }
+  html[data-large-text="true"] .session-heading > .text-button { grid-row: 2; grid-column: 1; }
+  html[data-large-text="true"] .session-heading > .pause-button { grid-row: 2; grid-column: 2; }
+}
+
+@media (max-width: 370px) {
+  .session-heading { grid-template-columns: minmax(0, 1fr) auto; gap: .4rem; }
+  .session-heading > div { grid-row: 1; grid-column: 1 / -1; text-align: left; }
+  .session-heading > .text-button { grid-row: 2; grid-column: 1; }
+  .session-heading > .pause-button { grid-row: 2; grid-column: 2; }
+}
+
+/* Keyboard hints mean nothing on a touch screen. */
+@media (hover: none) and (pointer: coarse) {
+  .robot-keyboard, .jump-button>span { display: none; }
+}
+
+/* Titles: semibold rather than bold, each a step larger. Weight is important
+   because older rules set 650-900 on individual titles. */
+.waiting-at-lurie :is(h1, h2, h3, h4) { font-weight: 600 !important; }
+.waiting-at-lurie .game-card h2 { font-size: 1.25rem; }
+/* Wide cards: a larger name and hint, with tighter line heights so the white
+   strip under each cover stays the same height. */
+@media (min-width: 880px) {
+  .waiting-at-lurie .game-card h2 { font-size: 1.375rem; line-height: 28px; }
+  .waiting-at-lurie .game-card .game-card-copy>p { font-size: .9375rem; line-height: 21px; }
+}
+.waiting-at-lurie .comfort-sheet .comfort-heading h2 { font-size: 1.875rem; }
+.waiting-at-lurie .help-steps h3 { font-size: 1.03rem; }
+.waiting-at-lurie .session-heading h1 { font-size: 1.6rem; }
+.waiting-at-lurie :is(.mini-game-heading, .bubble-game-heading) h2 { font-size: 1.65rem; }
+.waiting-at-lurie .game-guide h2 { font-size: 1.1rem; }
+.waiting-at-lurie .pause-overlay h2 { font-size: 2.75rem; }
+.waiting-at-lurie .round-result h2 { font-size: 2.95rem; }
+@media (max-width: 760px) {
+  .waiting-at-lurie .game-card h2 { font-size: 1.125rem; }
+  .waiting-at-lurie .session-heading h1 { font-size: 1.22rem; }
+  .waiting-at-lurie :is(.mini-game-heading, .bubble-game-heading) h2 { font-size: 1.32rem; }
+  .waiting-at-lurie .pause-overlay h2 { font-size: 2.3rem; }
+  .waiting-at-lurie .round-result h2 { font-size: 1.95rem; }
+}
+/* Help's two columns are narrow on phones: names stay on one line. */
+@media (max-width: 420px) { .waiting-at-lurie .help-steps h3 { font-size: .9rem; } }
+@media (max-width: 380px) { .waiting-at-lurie .help-steps h3 { font-size: .86rem; } .help-steps>div { gap: .3rem; } .help-steps>div>svg { width: 19px; height: 19px; } }
+/* Round header: Show me on the left, the clock centered, Settings on the right (even when there is no clock).
+   Last in the file so it settles the 48px button heights above. */
+.round-bar { display: grid; grid-template-columns: 1fr auto 1fr; gap: .4rem .8rem; }
+.round-bar :is(.show-me-button, .session-settings) { white-space: nowrap; }
+.round-bar .round-clock { grid-column: 2; justify-self: center; }
+.round-bar .session-settings { grid-column: 3; justify-self: end; }
+.round-bar .round-time { gap: .4rem; font-size: 1.5rem; font-weight: 800; color: #2b3445; }
+/* Show me matches Settings' text size: the button stays a 44px touch target, and ::before draws the slim pill inside it. */
+.round-bar .show-me-button { justify-self: start; position: relative; isolation: isolate; min-height: 44px; padding: 0 .75rem 0 .55rem; gap: .4rem; font-size: inherit; border: 0; background: none; }
+.round-bar .show-me-button::before { content: ""; position: absolute; inset: 6px 0; z-index: -1; border: 1px solid #c9d6ea; border-radius: 999px; background: #fff; }
+@media (hover: hover) { .round-bar .show-me-button:hover { background: none; } .round-bar .show-me-button:hover::before { background: #eef4fd; } }
+@media (max-width: 760px) { .round-bar .round-time { font-size: 1.3rem; } }
