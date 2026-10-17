@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Figtree';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/figtree-variable.ttf') format('truetype');
+}
+
+:root {
+  /* Apple resolves its native SF Pro first; other platforms use Figtree. */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Figtree', sans-serif;
+  --font-display: var(--font-body);
+  font-family: var(--font-body);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+html[data-font="figtree"] {
+  --font-body: 'Figtree', sans-serif;
+}
+
+html[data-font="figtree"] body {
+  font-weight: 400;
+  letter-spacing: -.01em;
+}
+
+/* Regular-weight, closely spaced titles echo the reference. The weight
+   overrides older game-specific heading rules, including lazy-loaded styles. */
+html[data-font="figtree"] .waiting-at-lurie :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 400 !important;
+  letter-spacing: -.04em !important;
+}
+
+/* Smaller titles and controls need a little more space between letters. */
+html[data-font="figtree"] .waiting-at-lurie .game-card h2 {
+  letter-spacing: -.03em !important;
+}
+
+html[data-font="figtree"] .waiting-at-lurie .lurie-name {
+  font-weight: 400;
+  letter-spacing: -.03em;
+}
+
+html[data-font="figtree"] .waiting-at-lurie :is(.icon-button, .appointment-button, .card-open,
+  .primary-button, .secondary-button, .text-button) {
+  font-weight: 500;
+  letter-spacing: -.015em;
+}

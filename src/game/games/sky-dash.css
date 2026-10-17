@@ -1,0 +1,31 @@
+.sky-game {
+  --adventure-ink: #59445e;
+  --adventure-ground: #fff6ed;
+  --adventure-line: #d8bdcf;
+}
+.sky-game .three-hud { background: #fff6ed; color: #59445e; }
+.sky-game .steer-button { color: #59445e; background: #fffdfa; border-color: #ba9caf; box-shadow: 0 3px #e3c9d6; }
+.sky-game .jump-button { color: #523b53; background: #f8d4df; border-color: #b9819a; box-shadow: 0 3px #d8a5bb; }
+.sky-game .jump-button > span { color: #634560; }
+.sky-game .jump-button[aria-disabled="true"] { color: #685c68; background: #ede3e8; box-shadow: none; }
+.sky-game .journey-progress { background: #e5d4e5; }
+.sky-game .journey-progress > span { background: #9b719e; }
+.sky-game .journey-progress > svg { color: #76547a; }
+.sky-game .flat-track { background: #d8edf0; }
+.sky-game .flat-lanes { background: repeating-linear-gradient(90deg, #fff0d1 0%, #fff0d1 calc(33.333% - 2px), #d9b9db calc(33.333% - 2px), #d9b9db 33.333%); border-color: #eda8bd; }
+.sky-game .flat-ship { width: 76px; height: 81px; }
+.sky-game .flat-ship.jumping { top: 85%; }
+.sky-game .flat-ship, .sky-game .flat-object { will-change: transform; }
+.sky-game .gem-count-pop { display: inline-block; animation: sky-gem-catch .42s ease-out; }
+@keyframes sky-gem-catch { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.2); } }
+html[data-quiet="true"] .sky-game .gem-count-pop { animation: none; }
+@media (prefers-reduced-motion: reduce) { .sky-game .gem-count-pop { animation: none; } }
+.sky-game .flat-ship svg { width: 100%; height: 100%; overflow: visible; }
+.sky-game .flat-object.gem { color: #bc820f; }
+.sky-game .flat-object.block { display: grid; place-items: center; width: 36px; height: 32px; border: 2px solid #91679e; border-radius: 9px; background: #d6b5e7; color: #664771; font-size: 22px; font-weight: 800; }
+.intro-sky { background: #d8edf0; }
+.intro-sky .sky-cover { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (hover: hover) {
+  .sky-game .steer-button:hover { background: #fbe8f0; }
+  .sky-game .jump-button:not([aria-disabled="true"]):hover { background: #f3c4d4; }
+}

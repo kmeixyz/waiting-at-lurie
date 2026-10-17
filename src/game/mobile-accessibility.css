@@ -1,0 +1,110 @@
+/* Mobile-first refinements and contrast tokens shared by every activity. */.game-card:has(.new-game-label) .game-cover>img{object-position:80% center}.session[data-game=robot] .intro-art{object-position:72% center}
+:root { --muted: #485369; --line: #d2d8e4; }
+html { -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; }
+[hidden] { display: none !important; }
+button, a, [tabindex] { -webkit-tap-highlight-color: transparent; }
+html[data-keys="true"] :is(button, a, [tabindex="0"]):focus-visible { outline: 3px solid #253cab; outline-offset: 3px; box-shadow: 0 0 0 6px #fff; }
+button:disabled, .secondary-button:disabled, .primary-button:disabled { opacity: 1; background: #e7eaf0; color: #536075; box-shadow: none; }
+.primary-button { transition: transform .18s ease, box-shadow .18s ease; }
+.app-header { background: var(--paper); }
+.cover-cards>span:nth-child(2) { background: #925078; }
+.theme-purple { --cover-ink: #624990; }
+.theme-pink { --cover-ink: #8a355f; }
+.theme-blue { --cover-ink: #285994; }
+.round-progress { background: #dae0ee; }
+.round-progress>span { background: #455db5; }
+.memory-card { background: #74599c; }
+.memory-card.open { color: #812c58; border-color: #9a5278; }
+.memory-card.matched { color: #265c37; border-color: #648f70; }
+.puzzle-status { flex-wrap: wrap; }
+
+/* Adventure UI uses opaque surfaces: artwork never determines text contrast. */
+.adventure-session .play-shell { border-color: #a5b7c9; }
+.three-game { --adventure-ink: #173d3a; --adventure-ground: #e7f7ed; --adventure-line: #648e7c; background: var(--adventure-ground); color: var(--adventure-ink); }
+.three-hud { padding: .75rem 1rem; min-height: 66px; gap: .7rem; background: var(--adventure-ground); color: var(--adventure-ink); border-bottom: 1px solid var(--adventure-line); }
+.three-hud>span { font-size: .85rem; gap: .5rem; min-width: 0; }
+.three-hud strong { font-size: 1.35rem; font-weight: 950; }
+.hud-stat>svg { color: #70521b; }
+/* Streak ring: fills a step per gem in a row (--streak is 0 to 1), then pops as the multiplier goes up. */
+.hud-streak { display: flex; align-items: center; gap: .45rem; color: #254d3e; }
+.streak-ring { position: relative; display: grid; place-items: center; width: 44px; height: 44px; flex: none; }
+.streak-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.streak-ring circle { fill: none; stroke-width: 4.5; }
+.streak-ring .streak-track { fill: #fff; stroke: #cfe3d7; }
+.streak-fill { stroke: #2f8a5b; stroke-linecap: round; stroke-dasharray: var(--streak) 1; opacity: min(1, calc(var(--streak) * 100)); transition: stroke-dasharray .3s ease-out; }
+.streak-ring strong { position: relative; font-size: .95rem; font-weight: 900; }
+.streak-label { font-size: .8rem; }
+.hud-streak.maxed .streak-fill { stroke: #d99a00; }
+.hud-streak.maxed .streak-ring strong { color: #8a5a00; }
+.streak-ring.pop { animation: streak-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes streak-pop { 0% { transform: scale(1); } 40% { transform: scale(1.25); } 100% { transform: scale(1); } }
+html[data-quiet="true"] .streak-ring.pop { animation: none; }
+html[data-quiet="true"] .streak-fill { transition: none; }
+@media (prefers-reduced-motion: reduce) { .streak-ring.pop { animation: none; } .streak-fill { transition: none; } }
+.three-stage { height: 460px; isolation: isolate; }
+.sky-game .three-stage { touch-action: none; }
+/* Keeps the progress bar's bottom margin inside the card. */
+.sky-game { display: flow-root; }
+.three-stage canvas { z-index: -1; }
+.sky-controls { padding: .85rem .85rem .6rem; gap: .65rem; }
+.steer-button { color: #173d3a; background: #fafffc; border-color: #648e7c; box-shadow: 0 3px #a6c6b5; min-height: 58px; }
+.jump-button { color: #143c32; background: #b6efca; border-color: #487b5d; min-height: 58px; box-shadow: 0 3px #7fac93; }
+.jump-button[aria-disabled="true"] { background: #e3ebe4; color: #3b5347; box-shadow: none; }
+.jump-button>span { color: #264f3b; }
+/* The right margin makes room for the flag, which sits just past the bar's end. */
+.journey-progress { position: relative; height: 7px; margin: .6rem calc(1.5rem + 18px + .45rem) 1.2rem 1.5rem; border-radius: 8px; background: #b8d1c4; }
+.journey-progress>span { display: block; height: 100%; background: #36674c; border-radius: inherit; transition: width .15s linear; }
+.journey-progress>svg { position: absolute; right: calc(-18px - .45rem); top: -7px; color: #254c36; }
+.flat-mode .three-stage canvas { display: none; }
+.graphics-note { color: #293e5a; background: #eff3fa; }
+
+@media (max-width: 760px) {
+  .app-header { padding: .65rem max(.85rem, env(safe-area-inset-right)) .65rem max(.85rem, env(safe-area-inset-left)); min-height: 68px; }
+  .brand { font-size: 1.1rem; }
+  .app-header .header-actions { gap: .2rem; }
+  .appointment-button { margin-left: 0; padding: .6rem .75rem; }
+  .library-main { padding: 1.6rem 1rem; }
+  .session-main { padding: .8rem .6rem max(.7rem, env(safe-area-inset-bottom)); }
+  .session-heading { grid-template-columns: 1fr auto; gap: .3rem .5rem; margin-bottom: .65rem; }
+  .session-heading>div { text-align: left; grid-row: 1; grid-column: 1; }
+  .session-heading h1 { font-size: 1.5rem; }
+  .session-heading>div>span { display: none; }
+  .session-heading>.text-button { grid-row: 2; grid-column: 1; min-height: 44px; padding: .25rem 0; font-size: .8rem; }
+  .session-heading>.pause-button { grid-row: 1 / 3; grid-column: 2; min-width: 76px; min-height: 46px; }
+  .play-shell { border-radius: 18px; }
+  .round-bar { padding: .5rem .8rem; min-height: 38px; }
+  .adventure-session .game-surface { min-height: 0; }
+  .three-hud { padding: .45rem .75rem; gap: .4rem; min-height: 54px; }
+  .three-hud>span { font-size: .75rem; gap: .3rem; }
+  .three-hud strong { font-size: 1.1rem; }
+  .three-hud>span>svg { width: 19px; height: 19px; }
+  .streak-ring { width: 38px; height: 38px; }
+  .streak-ring strong { font-size: .85rem; }
+  .three-stage, .sky-game .three-stage { height: clamp(270px, 43svh, 410px); }
+  .sky-controls { gap: .5rem; padding: .7rem .6rem .5rem; }
+  .steer-button { flex: 1; min-width: 0; font-size: .85rem; padding: .6rem; min-height: 56px; }
+  .jump-button { flex: 1.2; justify-content: center; font-size: .85rem; min-height: 56px; padding: .6rem .3rem; }
+  .jump-button>span { display: none; }
+  .journey-progress { margin-inline: 1rem calc(1rem + 18px + .45rem); }
+  .game-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); }
+}
+@media (max-width: 350px) {
+  .brand-symbol { display: none; }
+  .three-hud>span>svg { display: none; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .adventure-session .three-stage { height: 280px; }
+  .app-header { position: static; }
+}
+@media (prefers-contrast: more) {
+  :root { --muted: #263249; --line: #65748c; }
+  button, .game-card, .play-shell { border-color: #52617c; }
+}
+@media (forced-colors: active) {
+  button, .game-card, .memory-card { border: 1px solid ButtonText; }
+  .round-progress>span { background: Highlight; forced-color-adjust: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

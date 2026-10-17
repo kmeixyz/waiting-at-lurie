@@ -1,0 +1,45 @@
+.robot-workspace{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);outline:none;min-width:0}
+.robot-mobile-run{display:none}
+.robot-map-panel{padding:1.5rem;background:#eef0fc;min-width:0;border-right:1px solid #d8dced}
+.robot-map-heading{display:flex;justify-content:flex-end;align-items:center;gap:1rem;font-size:.9rem;font-weight:850;color:#34365e;margin-bottom:1.2rem}
+.robot-map-heading>strong{display:flex;gap:.45rem;align-items:center}.robot-map-heading>strong{white-space:nowrap;color:#735215;background:#fff2c6;padding:.35rem .6rem;border-radius:10px}
+.robot-board-wrap{background:#333453;border-radius:19px;padding:.4rem;box-shadow:0 7px 0 #22243e;max-width:420px;margin:auto}
+.robot-board{table-layout:fixed;border-spacing:5px;width:100%}
+.robot-board td{width:20%;padding:0;background:#e1e5fc;border-radius:9px;color:#344257;border:1px solid #d4dbf0;vertical-align:middle}
+.robot-board td>div{display:flex;align-items:center;justify-content:center;position:relative;min-height:100%;aspect-ratio:1}
+.robot-board .robot-wall{background:#51536f;border-color:#676a89;color:#edf0ff;box-shadow:inset 0 -5px #40435f}
+.robot-board .robot-star{background:#fff0ba;color:#896209;border-color:#dcb658}
+.robot-board .robot-star.collected{background:#dcf1e9;color:#356256;border-color:#9bbeac}
+.robot-board .robot-dock{background:#c1ede3;color:#265b50;border:2px dashed #427e70}
+.robot-board .robot-here{background:#4554c7;color:white;border:2px solid #e2e7ff;box-shadow:0 0 0 2px #4554c7}
+.robot-here>div>svg{animation:robot-arrive .22s ease-out}.robot-coordinate{position:absolute;left:4px;bottom:1px;font-size:.75rem;line-height:1.2;font-variant-numeric:tabular-nums}.robot-start-dot{height:12px;width:12px;border:3px solid #5464aa;border-radius:50%}
+.robot-legend{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.3rem;color:#444961;font-size:.8rem;font-weight:750}.robot-legend>span{display:flex;align-items:center;gap:.25rem}.robot-legend svg{width:18px;height:18px}
+.robot-program-panel{padding:1.5rem;min-width:0}.robot-program-heading{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}.robot-program-heading h2{font-size:1.3rem;font-weight:900}.robot-program-heading>span{font-size:.875rem;color:#536075;font-weight:800}
+.robot-instruction{font-size:.9rem;color:#485369;margin:.5rem 0 1rem}.robot-add{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem}.robot-add button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;min-height:64px;border:1px solid #9da9d2;border-radius:12px;background:#f0f3ff;color:#364992;font-weight:850;font-size:.8rem}.robot-add button>span{text-transform:capitalize}@media (hover: hover) { .robot-add button:hover:not(:disabled){background:#dce4ff} }
+.robot-queue{list-style:none;margin:1rem 0 .5rem;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem}.robot-queue li{min-width:0}.robot-queue button,.robot-empty-slot{position:relative;display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;height:100%;border-radius:9px}.robot-queue button{background:#e5e9ff;border:1px solid #a2acd9;color:#33458e;padding:.65rem .25rem .45rem}.robot-queue button>span{position:absolute;top:1px;left:4px;font-size:.75rem}.robot-empty-slot{border:1px dashed #c4cada;background:#f7f8fc;font-size:.75rem;color:#646e82}.robot-queue button:disabled{background:#e5e9ff;color:#33458e}.robot-queue button.executed{background:#d9eee7;color:#295c4f;border-color:#7fa99c}.robot-queue button[aria-current=step]{background:#3f50bb;color:white;border:2px solid #283887;box-shadow:0 0 0 2px #ced4fd}.robot-queue button.blocked{background:#fff0d0;color:#774511;border:2px dashed #956220}
+.robot-edit-actions{display:flex;align-items:center;gap:.3rem;margin-bottom:.8rem;flex-wrap:wrap}.robot-edit-actions .secondary-button{margin-left:auto}.robot-edit-actions .text-button{font-size:.85rem}.robot-run{width:100%}.robot-notice{margin-top:.8rem;padding:.7rem .8rem;border-radius:10px;background:#f0f3fa;color:#344159;font-size:.875rem;min-height:4.6rem}.robot-notice.needs-edit{background:#fff1d9;color:#714410}.robot-keyboard{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.8rem;color:#536075;margin-top:.8rem}
+@keyframes robot-arrive{from{transform:scale(.8)}to{transform:scale(1)}}
+@media(max-width:760px){.robot-workspace{grid-template-columns:1fr}.robot-map-panel{padding:1rem;border-right:0;border-bottom:1px solid #d8dced}.robot-map-heading{margin-bottom:.7rem;font-size:.85rem}.robot-board-wrap{max-width:300px}.robot-board{border-spacing:4px}.robot-board td>div>svg{width:28px;height:28px}.robot-legend{margin-top:.9rem;gap:.65rem}.robot-program-panel{padding:1rem}.robot-queue{grid-template-columns:repeat(5,minmax(0,1fr))}.robot-keyboard{display:none}.robot-coordinate{font-size:.75rem}.robot-map-heading>span{max-width:19ch}.robot-add button{min-height:56px}}
+@media(prefers-reduced-motion:reduce){.robot-here>div>svg{animation:none}}
+@media(max-width:760px){.robot-mobile-run{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem;font-size:.875rem;font-weight:800}}
+@media(forced-colors:active){.robot-board td,.robot-queue button,.robot-empty-slot{border:1px solid CanvasText}.robot-board .robot-here,.robot-queue button[aria-current=step]{outline:3px solid Highlight}.robot-board .robot-wall{color:CanvasText}}
+
+/* Each cell's square <div> sets the row height. A table aspect-ratio or
+   percentage cell heights double the board's height in Safari. */
+/* Arrival: the robot settles on its home tile before the round ends. */
+.robot-arrived .robot-board .robot-here{background:#2f8f74;box-shadow:0 0 0 4px #b9ecd9}
+.robot-arrived .robot-here>div>svg{animation:robot-home .6s ease-out}
+.robot-arrived .robot-notice{background:#e3f6ee;color:#1f5a47;font-weight:700}
+@keyframes robot-home{0%{transform:scale(.8)}45%{transform:scale(1.18) rotate(-6deg)}100%{transform:scale(1)}}
+html[data-quiet="true"] .robot-arrived .robot-here>div>svg{animation:none}
+@media(prefers-reduced-motion:reduce){.robot-arrived .robot-here>div>svg{animation:none}}
+/* Small tiles: keep coordinates on open tiles only, so icons stay readable. */
+@media(max-width:520px){.robot-board :is(.robot-star,.robot-wall,.robot-dock,.robot-here) .robot-coordinate{display:none}}
+/* Move-now mode: the open squares beside the robot glow and can be tapped. */
+.robot-board td.robot-step{cursor:pointer;background:#fff;border:2px solid #7d8cf0;box-shadow:0 0 0 3px #aab4ff66;animation:robot-step-glow 1.6s ease-in-out infinite}
+.robot-board td.robot-step.robot-star{background:#ffe98a;border-color:#c99b1e}
+.robot-board td.robot-step.robot-dock{background:#d6f7ee;border-style:solid}
+@keyframes robot-step-glow{50%{box-shadow:0 0 0 5px #aab4ff99}}
+html[data-quiet="true"] .robot-board td.robot-step{animation:none}
+@media(prefers-reduced-motion:reduce){.robot-board td.robot-step{animation:none}}
+@media(forced-colors:active){.robot-board td.robot-step{border:3px solid Highlight}}
