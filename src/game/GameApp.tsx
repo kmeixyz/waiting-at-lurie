@@ -11,6 +11,7 @@ import { ColorLabArt, PebbleArt } from './games/DiscoveryArt'
 import { GardenArt } from './games/gardenArt'
 import { PostcardArt } from './games/postcardArt'
 import { PlanetPostCover } from './games/PlanetPost'
+import { LightLabCover } from './games/LightLab'
 import { MusicCover } from './games/MusicPad'
 import { MatchCover } from './games/Matching'
 import { StickerCover } from './games/StickerScene'
@@ -20,6 +21,7 @@ import { WavingBear } from './creatures'
 import { setSoundEnabled } from './sound'
 import { readStickers } from './stickers'
 function GameCover({ game }: { game: GameEntry }) {
+  if (game.id === 'lightlab') return <LightLabCover/>
   if (game.id === 'planetpost') return <PlanetPostCover/>
   if (game.id === 'colors') return <ColorLabArt/>
   if (game.id === 'pebbles') return <PebbleArt/>

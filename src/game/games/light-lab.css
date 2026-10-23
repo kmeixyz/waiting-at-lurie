@@ -1,0 +1,63 @@
+.light-cover { width:100%; height:100%; display:grid; place-items:center; background:#202941; }
+.light-cover svg { width:100%; height:100%; max-height:360px; }
+.intro-light { background:#202941; }
+.light-game .discovery-instruction { text-align:center; max-width:460px; margin:0 auto 1.2rem; }
+.light-map { max-width:480px; margin:auto; padding:14px; background:#202941; border-radius:22px; }
+.light-key { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; color:#f3f0df; padding:0 2px 14px; font-size:.75rem; }
+.light-key span { display:flex; align-items:center; gap:5px; }
+.light-board { position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); grid-template-rows:repeat(5,minmax(0,1fr)); aspect-ratio:1; isolation:isolate; }
+.light-cell { min-width:0; min-height:0; border:1px solid #414b65; display:grid; place-items:center; position:relative; }
+.light-beam { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; overflow:visible; }
+.light-beam polyline { fill:none; stroke-linejoin:round; stroke-linecap:round; }
+.light-beam-halo { stroke:#ffda72; stroke-width:.16; opacity:.18; }
+.light-beam-core { stroke:#ffdd76; stroke-width:.055; }
+.light-board .light-mirror { padding:0; border-radius:9px; background:#35405b; color:#9be6f4; cursor:pointer; touch-action:manipulation; }
+.light-board .light-mirror:hover:not(:disabled) { background:#445474; }
+.light-board .light-mirror:disabled { opacity:1; cursor:default; }
+.light-mirror-glyph { width:100%; height:100%; position:absolute; inset:0; z-index:2; pointer-events:none; }
+.light-mirror-number { position:absolute; left:5px; top:3px; font-size:11px; line-height:1; color:#f5f7ff; z-index:2; pointer-events:none; }
+.light-board .light-mirror:focus-visible { outline:3px solid white; outline-offset:-4px; }
+.light-board .light-hinted { outline:3px dashed #ffe9a6; outline-offset:-5px; }
+.light-target>span,.light-endpoint>span { position:relative; z-index:2; display:grid; place-items:center; }
+.light-target { color:#c5ccdf; }
+.light-target>span { background:#202941; border-radius:50%; }
+.light-target b { position:absolute; font-size:11px; color:#f5f7ff; padding-top:3px; }
+.light-target.light-lit { color:#ffdd76; }
+.light-target.light-lit b { color:#202941; }
+.light-endpoint>span { background:#39445f; border:1px solid #c5ccdf; border-radius:9px; padding:4px; gap:1px; color:#eef3ff; }
+.light-endpoint b { font-size:10px; line-height:1.2; white-space:nowrap; }
+.light-endpoint.light-lit>span { background:#ffdd76; border-color:#ffdd76; color:#202941; }
+.light-wall { background:repeating-linear-gradient(135deg,#2c364f 0 6px,#37425b 6px 8px); color:#c5ccdf; }
+.light-wall span { font-size:24px; z-index:2; }
+.light-game .discovery-feedback p { margin:.4rem 0 0; }
+.light-success { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin:1.5rem auto 0; }
+.light-success>strong { width:100%; display:flex; align-items:center; justify-content:center; gap:6px; text-align:center; }
+@media(max-width:600px) {
+ .light-map { padding:9px; border-radius:16px; }
+ .light-key { font-size:.7rem; padding-bottom:9px; }
+ .light-endpoint>span { padding:2px; }
+ .light-endpoint svg { width:20px; height:20px; }
+ .light-game .mini-game-heading { flex-wrap:wrap; }
+ .light-game .puzzle-picker { flex-wrap:wrap; }
+ .light-game .puzzle-picker button { flex-basis:90px; }
+}
+@media(forced-colors:active) {
+ .light-beam-core { stroke:Highlight; }
+ .light-beam-halo { display:none; }
+ .light-board .light-mirror { border:2px solid ButtonText; color:ButtonText; }
+ .light-board .light-hinted { outline-color:Highlight; }
+ .light-mirror-glyph path { stroke:ButtonText; }
+ .light-lit>span { outline:2px solid Highlight; }
+ .light-cell { border-color:CanvasText; }
+}
+
+/* Fit the current shelf and keep the board close to its tools on phones. */
+.game-card .game-cover .light-cover { position:absolute; inset:0; }
+:is(.sticker-badge, .done-badge).sticker-lightlab { --cover-ink:#a36a0d; --cover:#ffe3a0; }
+@media(max-width:760px) {
+ .light-game { display:flex; flex-direction:column; }
+ .light-game .light-map { width:min(100%, 380px); }
+ .light-game>.puzzle-picker { order:4; width:100%; margin:1rem auto 0; }
+ .light-game .discovery-feedback { margin:.8rem auto; }
+ .light-game .discovery-instruction { margin:.5rem auto .8rem; }
+}
