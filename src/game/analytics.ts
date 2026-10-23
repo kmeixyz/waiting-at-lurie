@@ -6,6 +6,7 @@
  */
 
 export type GameId =
+  | 'lightlab'
   | 'planetpost'
   | 'colors'
   | 'pebbles'
@@ -39,7 +40,7 @@ function read(): PilotStats {
     if (parsed?.version !== 1) return { ...empty, games: {} }
     const count = (value: unknown) => typeof value === 'number' && Number.isFinite(value) && value >= 0 ? Math.floor(value) : 0
     const games: PilotStats['games'] = {}
-    const ids: GameId[] = ['planetpost','colors','pebbles','robot','bubbles','sky','matching','postcards','garden','music','stickers']
+    const ids: GameId[] = ['lightlab','planetpost','colors','pebbles','robot','bubbles','sky','matching','postcards','garden','music','stickers']
     for (const id of ids) {
       const game = parsed.games?.[id]
       if (game && typeof game === 'object') games[id] = { starts: count(game.starts), seconds: count(game.seconds), finishes: count(game.finishes) }
